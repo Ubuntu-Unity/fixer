@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -e
+
+## Functions
+
+function fail() {
+	echo "$@" 1>&2;
+	exit 1
+}
+
+## Main body
+
+# Exit if not root
+[[ $EUID -eq 0 ]] || fail 'Requires root.'
+
+# Exit if no args
+[[ $# -eq 1 ]] || fail 'Requires 1 argument: <FIX>'
+
+# banner
+echo 'fixer --> brought to you by Ubuntu Unity'
+echo '========================================'
+echo ''
+
+# STEP 1: Source the config
+echo "(Step 1/2) Importing config"
+source /etc/fixer.conf > /dev/null 2>&1 || fail 'Something went wrong. Does /etc/fixer.conf exist?'
+
+# STEP 2: Fetch and run
+echo "(Step 2/2) Fetch and run"
+rm -f "/tmp/$1.fix"
+curl -L --fail --silent --output "/tmp/$1.fix" "$SOURCE/$1.fix" &> /dev/null || fail "Something went wrong. Does $1 exist?"
+bash "/tmp/$1.fix" || echo "Something went wrong."
+
+echo "Successfully ran $1"
