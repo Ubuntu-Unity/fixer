@@ -30,6 +30,6 @@ source /etc/fixer.conf > /dev/null 2>&1 || fail 'Something went wrong. Does /etc
 echo "(Step 2/2) Fetch and run"
 rm -f "/tmp/$1.fix"
 curl -L --fail --silent --output "/tmp/$1.fix" "$SOURCE/$1.fix" &> /dev/null || fail "Something went wrong. Does $1 exist?"
-bash "/tmp/$1.fix" || echo "Something went wrong."
+bash "/tmp/$1.fix" || fail "Something went wrong."
 
 echo "Successfully ran $1"
