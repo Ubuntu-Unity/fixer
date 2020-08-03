@@ -17,6 +17,9 @@ function fail() {
 # Exit if no args
 [[ $# -eq 1 ]] || fail 'Requires 1 argument: <FIX>'
 
+# Exit if curl is not installed
+curl --help &> /dev/null || fail 'CURL is required for fixer to work.'
+
 # banner
 echo 'fixer --> brought to you by Ubuntu Unity'
 echo '========================================'
