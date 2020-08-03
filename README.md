@@ -6,6 +6,7 @@ Download https://raw.githubusercontent.com/Ubuntu-Unity/fixer/master/fixer, and 
 
 ### Dependencies (NEEDED TO OPERATE)
 - bash
+- coreutils
 - curl
 
 ### Configuration File (NEEDED TO OPERATE)
